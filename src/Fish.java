@@ -34,6 +34,17 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 		{0.16,0.08,0.05, 0.065}		
 	};
 
+	public static double[][] PRESET2 = {
+		{1.4, 0.2, 0.32,-0.08,45.0}, //ok
+		{0.7, 0.7, -0.82,0.40,-25.0}, // ok
+		{0.6, 0.7, 0.2,0.60,30.0}, //ok
+		{0.7, 0.7, 0.2,0.90,-40.0}, //ok
+		{1,   0.12, 0.32,-0.08,45.0}, //ok
+		{0.9, 0.2, -0.82,0.40,-25.0}, // ok
+		{0.5, 0.8, 0.2,0.60,30.0}, //ok
+		{0.3, 0.2, 0.2,0.90,-40.0} //ok
+		
+	}; 
 
 
 	
@@ -81,16 +92,17 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 				}
 			}
 		}
-		im = new ImageIcon(bufferedImage).getImage();
+		im = bufferedImage.getScaledInstance(bufferedImage.getWidth(), bufferedImage.getHeight(), 100);
 		Random r = new Random();
-		zoom = 100+(int)(r.nextFloat()*250);
+		zoom = 500;
 		im = im.getScaledInstance(zoom, zoom, 100);
 	}
 	
 	
 	
 	public void setTransformationAffine(){
-		AffineTransformation at = new AffineTransformation();
+		int prese = (int)(Math.random()*PRESET2.length);
+		AffineTransformation at = new AffineTransformation(PRESET2[prese][0],PRESET2[prese][1],PRESET2[prese][2],PRESET2[prese][3],PRESET2[prese][4]);
 		im = new ImageIcon(at.getAffineTransformation(convertToBufferedImage(im), 700, 350)).getImage();
 	}
 	
@@ -200,6 +212,7 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 			if(paint==null) break;
 			startX = startX + (int)x;
 			x = x + 0.00000002;
+			if(startX>1000) startX = 0;
 		}
 		
 	}

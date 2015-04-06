@@ -12,9 +12,20 @@ public class AffineTransformation extends JComponent {
 	
 	BufferedImage original;	
 	BufferedImage im;
+	double scalex;
+	double scaley;
+	double shearx;
+	double sheary;
+	double rot;
 	
-	   public AffineTransformation() {
+	   public AffineTransformation(double sx , double sy, double shx, double shy, double rot) {
 		   super();
+		   scalex = sx;
+		    scaley = sy;
+		    shearx = shx;
+		    sheary = shy;
+		    this.rot = rot;
+		   
 	   }
 
 	   public BufferedImage getAffineTransformation(BufferedImage img, int MaxX, int MaxY){
@@ -22,9 +33,7 @@ public class AffineTransformation extends JComponent {
 	    Graphics2D g = img.createGraphics();
 	    g = getGraphicsScale(g);
 	    g = getGraphicsShear(g);
-	    g = getGraphicsTranslate(g);
 	    g = getGraphicsRotate(g);
-	    
 	    BufferedImage displayImage =new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.BITMASK);
 	    Graphics2D ger = displayImage.createGraphics();
 	    if(img.getWidth()>MaxX || img.getHeight()>MaxY){
@@ -37,28 +46,18 @@ public class AffineTransformation extends JComponent {
 	   }
 	   
 	  private Graphics2D getGraphicsRotate(Graphics2D g) {
-		  g.rotate(Math.random()*10 * Math.PI / 180.0);
-		  return g;
-	}
-
-	private Graphics2D getGraphicsTranslate(Graphics2D g) {
-		  g.translate(Math.random(),Math.random());
+		  g.rotate(Math.toRadians(rot));
 		  return g;
 	}
 
 	private Graphics2D getGraphicsShear(Graphics2D g) {
-		 int h = (int)(Math.random()*5);
-		 for(int i=0;i<h;i++){
-			 g.shear(0.5, 0.15);
-			 if(Math.random()<0.6){
-				 g = getGraphicsRotate(g);
-			 }
-		 }
+		 g.shear(shearx, sheary);
+		 //g = getGraphicsRotate(g);
 		 return g;
 	}
 
 	private Graphics2D getGraphicsScale(Graphics2D g) {
-			g.scale(Math.random(),Math.random());
+		g.scale(scalex, scaley);
 		return g;
 	}
 
@@ -109,7 +108,12 @@ public class AffineTransformation extends JComponent {
 		  
 		  
 	    JFrame frame = new JFrame("Shear the oval");
-	    AffineTransformation tx = new AffineTransformation();
+	    double scalex = 0.7;
+		double scaley = 0.7;
+		double shearx = -0.90;
+		double sheary = 0.25;
+		double rot = -15.0;
+	    AffineTransformation tx = new AffineTransformation(scalex, scaley,shearx,sheary,rot);
 	    BufferedImage img = null;
 		try{
 			img = ImageIO.read(new BufferedInputStream(new FileInputStream("src/fisho.gif")));
