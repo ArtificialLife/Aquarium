@@ -90,11 +90,12 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 	
 	
 	public void setTransformationAffine(){
-		
+		AffineTransformation at = new AffineTransformation();
+		im = new ImageIcon(at.getAffineTransformation(convertToBufferedImage(im), 700, 350)).getImage();
 	}
 	
 	@Override
-	public void paint(Graphics g){
+	public synchronized void paint(Graphics g){
 		/*if(startX+im.getWidth(this)>1000){
 			if(startX - (startX + im.getWidth(this)-1000)<0){
 				im = im.getScaledInstance(im.getWidth(this)/2, im.getHeight(this)/2, 100);
@@ -126,7 +127,6 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 			e.printStackTrace();
 		}
 		g.drawImage(bufferedImage, startX, startY, this);
-		
 		
 	}
 	
@@ -193,10 +193,13 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 		jo.setVisible(true);
 		t = new Thread(jo);
 		t.start();
+		double x = 0;
 		while(t.isAlive()){
 			repaint();
 			paint = jo.getU();
 			if(paint==null) break;
+			startX = startX + (int)x;
+			x = x + 0.00000002;
 		}
 		
 	}
