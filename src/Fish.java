@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 public class Fish extends JComponent implements Cloneable, Runnable {
 
 	
-	public static double[][] PRESET = {
+	public static double[][] PRESET = { // Values for Turing Morph 
 		{0.16,0.08,0.035,0.06},
 		{0.16,0.08,0.042, 0.065},
 		{0.18,0.13,0.025, 0.056},
@@ -34,7 +34,7 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 		{0.16,0.08,0.05, 0.065}		
 	};
 
-	public static double[][] PRESET2 = {
+	public static double[][] PRESET2 = { // Values for Affinetransformation
 		{1.4, 0.2, 0.32,-0.08,45.0}, //ok
 		{0.7, 0.7, -0.82,0.40,-25.0}, // ok
 		{0.6, 0.7, 0.2,0.60,30.0}, //ok
@@ -94,7 +94,7 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 		}
 		im = bufferedImage.getScaledInstance(bufferedImage.getWidth(), bufferedImage.getHeight(), 100);
 		Random r = new Random();
-		zoom = 500;
+		zoom = 200;
 		im = im.getScaledInstance(zoom, zoom, 100);
 	}
 	

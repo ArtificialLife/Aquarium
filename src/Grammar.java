@@ -9,14 +9,14 @@ public class Grammar {
 	private Map<String, String> rules;
 	private int iteraciones;
 	
-	public Grammar(String axiom, Map<String, String> rules, int iteraciones){
+	public Grammar(String axiom, Map<String, String> rules, int iteraciones){ // Constructor
 		this.axiom = axiom;
 		this.rules = rules;
 		this.iteraciones = iteraciones;
 		
 	}
 	
-	public String generateLSystem(){
+	public String generateLSystem(){ // Generate the String used to the tree
 		String generated = axiom;
 		for(int i=0;i<iteraciones;i++){
 			for(String key:rules.keySet()){

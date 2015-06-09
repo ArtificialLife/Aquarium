@@ -20,7 +20,7 @@ public class AffineTransformation extends JComponent {
 	
 	   public AffineTransformation(double sx , double sy, double shx, double shy, double rot) {
 		   super();
-		   scalex = sx;
+		    scalex = sx;
 		    scaley = sy;
 		    shearx = shx;
 		    sheary = shy;
@@ -62,42 +62,7 @@ public class AffineTransformation extends JComponent {
 	}
 
 	public void paint(Graphics g) {
-	    /*Graphics2D g2d = (Graphics2D) g;
-	    AffineTransform affineTransform1 = AffineTransform.
-	          getTranslateInstance(0, 0);
-	    g2d.transform(affineTransform1);
-	    g2d.setPaint(Color.red);
-	    BufferedImage img = null;
-		try{
-			img = ImageIO.read(new BufferedInputStream(new FileInputStream("src/fisho.gif")));
-		}catch(Exception e){
-			System.out.println("Error "+e);
-		}
-	    g2d.drawImage(img, 10, 10, img.getHeight(), img.getHeight(), this);
-
-	    AffineTransform affineTransform2 = AffineTransform.
-	          getTranslateInstance(0, 0);
-	      affineTransform2.shear(-.7, -.2);
-	      g2d.transform(affineTransform2);
-	      g2d.transform(AffineTransform.getTranslateInstance(100, 100));
-	      
-	    Stroke stroke = new BasicStroke(1, BasicStroke.CAP_BUTT,
-	  	        BasicStroke.JOIN_BEVEL, 0, new float[] { 3, 1 }, 0);
-	  	    g2d.setStroke(stroke);
-
-	      
-	    AffineTransform affineTransform3 = AffineTransform.
-		          getTranslateInstance(0, 0);
-		      affineTransform3.shear(-0.7,-0.1);
-		      g2d.transform(affineTransform3);
-		      g2d.transform(AffineTransform.getTranslateInstance(100, 100));
-	      
-	    stroke = new BasicStroke(1, BasicStroke.CAP_BUTT,
-	        BasicStroke.JOIN_BEVEL, 0, new float[] { 3, 1 }, 0);
-	    g2d.setStroke(stroke);
-	    g2d.drawImage(img, 10, 10, img.getHeight(), img.getHeight(), this);
-	    
-	    //*/
+	  
 		Image or = original.getScaledInstance(150, 150, 100);
 	    g.drawString("Original (Scaled)", (100+or.getWidth(this))/2, 50);
 	    g.drawImage(or, 100, 100, this);

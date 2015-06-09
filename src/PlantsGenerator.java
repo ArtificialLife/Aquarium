@@ -39,6 +39,7 @@ public class PlantsGenerator extends JFrame{
 		parser1.setVisible(true);
 		Thread tree1 = new Thread(parser1);
 		tree1.start();
+		
 		//TREE 2
 		Map<String, String> rules2 = new TreeMap<String, String>();
 		rules2.put("F","FF-[-F+F+F]+[+F-F-F]");
@@ -131,6 +132,8 @@ public class PlantsGenerator extends JFrame{
 		Thread[] threads = new Thread[fishNumber];
 		threads[0]= new Thread(fish1);
 		threads[0].start();
+		
+		//The rest of the fishes
 		try{
 			for(int j=1;j<fishNumber;j++){
 				Fish aux = (Fish)fish1.clone();
@@ -141,6 +144,8 @@ public class PlantsGenerator extends JFrame{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		//Configure View
 		aquarium.getContentPane().add(parser1);
 		aquarium.getContentPane().add(parser2);
 		aquarium.getContentPane().add(parser3);

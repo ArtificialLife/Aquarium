@@ -15,6 +15,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+/*
+ * 
+ * Este codigo, pinta el arbol
+ * 
+ * */
 
 public class Parser extends Component implements Runnable{
 	
@@ -205,9 +210,10 @@ class Background extends JComponent{
 	
 	@Override
 	public void paint(Graphics g){
-		g.setColor(Color.white);
-		Image ima = im.getScaledInstance(1000, 600, Image.SCALE_FAST); 
-		g.drawImage(ima, startX, startY, this);
+		g.setColor(Color.BLUE);
+		//Image ima = im.getScaledInstance(1000, 600, Image.SCALE_FAST); 
+		//g.drawImage(ima, startX, startY, this);
+		g.drawRect(0, 0, 1000, 600);
 	}
 	
 }

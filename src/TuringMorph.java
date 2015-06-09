@@ -8,16 +8,18 @@ import javax.swing.JFrame;
 import org.omg.CORBA.INTERNAL;
 
 
+// Translation from Processing to Java http://www.openprocessing.org/sketch/25845
+
 public class TuringMorph extends JComponent implements Runnable {
 
-	int width;
+	int width;         //size of the JComponent
 	int height;
 	int a = 0;
 	
-	float r;
+	float r;          // Red and green codes pre-defined in rgb code
 	float gr;
 	
-	double diffU;
+	double diffU;     // Parametros de reacción-difusión
 	double diffV;
 	double paramF;
 	double paramK;
