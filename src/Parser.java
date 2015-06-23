@@ -189,7 +189,7 @@ class Line{
 	}
 }
 
-class Background extends JComponent{
+class Background extends JPanel{
 	
 	Image im ;
 	int startX;
@@ -211,9 +211,9 @@ class Background extends JComponent{
 	@Override
 	public void paint(Graphics g){
 		g.setColor(Color.BLUE);
-		//Image ima = im.getScaledInstance(1000, 600, Image.SCALE_FAST); 
-		//g.drawImage(ima, startX, startY, this);
-		g.drawRect(0, 0, 1000, 600);
+		Image ima = im.getScaledInstance(1300, 770, Image.SCALE_FAST); 
+		g.drawImage(ima, startX, startY, this);
+		//g.drawRect(0, 0, 1000, 600);
 	}
 	
 }

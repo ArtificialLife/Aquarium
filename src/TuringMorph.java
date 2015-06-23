@@ -42,7 +42,7 @@ public class TuringMorph extends JComponent implements Runnable {
 		double paramF1 = 0.045;
 		double paramK1 = 0.06;
 		
-		TuringMorph j = new TuringMorph(400, 400 , 0.67f, 0.34f, diffU1, diffV1, paramF1, paramK1);
+		TuringMorph j = new TuringMorph(400, 400 , 0.37f, 0.34f, diffU1, diffV1, paramF1, paramK1);
 		j.setSize(700,700);
 		j.setVisible(true);
 		frame.getContentPane().add(j);
@@ -166,7 +166,7 @@ public class TuringMorph extends JComponent implements Runnable {
 	}
 	public void run(){
 		Integer be=0;
-		while(be<Integer.MAX_VALUE){
+		while(be<1000){
 		for (int k = 0; k < 10; k++) {
 		       timestep(paramF, paramK, diffU, diffV);
 		    }

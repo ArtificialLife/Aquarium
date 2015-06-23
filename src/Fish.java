@@ -1,15 +1,22 @@
 
+import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.Point;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -60,6 +67,7 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 	TuringMorph jo;
 	Thread t;
 	float r,gr;
+	BufferedImage imagen;
 	
 	public Fish(String path, int x, int y, double du, double dv, double pf, double pk, float r, float gr){
 		super();
@@ -102,8 +110,8 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 	
 	public void setTransformationAffine(){
 		int prese = (int)(Math.random()*PRESET2.length);
-		AffineTransformation at = new AffineTransformation(PRESET2[prese][0],PRESET2[prese][1],PRESET2[prese][2],PRESET2[prese][3],PRESET2[prese][4]);
-		im = new ImageIcon(at.getAffineTransformation(convertToBufferedImage(im), 700, 350)).getImage();
+		//AffineTransformation at = new AffineTransformation(PRESET2[prese][0],PRESET2[prese][1],PRESET2[prese][2],PRESET2[prese][3],PRESET2[prese][4]);
+		//im = new ImageIcon(at.getAffineTransformation(convertToBufferedImage(im), 700, 350)).getImage();
 	}
 	
 	@Override
@@ -138,6 +146,7 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		imagen = bufferedImage;
 		g.drawImage(bufferedImage, startX, startY, this);
 		
 	}
@@ -184,22 +193,48 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 	
 	public static void main(String[] args){
 		JFrame myframe = new JFrame();
-		Fish fish = new Fish("src/fisho.gif", 50, 80, 0.16, 0.08, 0.045, 0.06,0.8f,0.5f);
+		Fish fish = new Fish("src/fisho.gif", 50, 80, 0.16, 0.08, 0.045, 0.06,0.5f,0.5f);
 		fish.setSize(1000,600);
 		fish.setVisible(true);
 		Thread thread = new Thread(fish);
 		thread.start();
-		myframe.getContentPane().add(fish);
+		Button save = new Button("Guardar");
+		BorderLayout ly = new BorderLayout();
+		TextField tx = new TextField();
+		myframe.setLayout(ly);
+		myframe.getContentPane().add(save, BorderLayout.EAST);
+		myframe.getContentPane().add(tx, BorderLayout.SOUTH);
+		myframe.getContentPane().add(fish, BorderLayout.CENTER);
 		myframe.setVisible(true);
 		myframe.setSize(1000, 600);
 		myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		save.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				File f = new File(tx.getText()+".png");
+				try {
+					ImageIO.write(fish.getImagenGuardar(), "PNG", f);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public BufferedImage getImagenGuardar(){
+		return this.imagen;
 	}
 
 	@Override
 	public void run() {
 		//Turing
 		BufferedImage img = convertToBufferedImage(im);
-		jo = new TuringMorph(img.getWidth(this), img.getHeight(this) , 0.67f, 0.34f, diffU1, diffV1, paramF1, paramK1);
+		double[] values = PRESET[0];
+		jo = new TuringMorph(img.getWidth(this), img.getHeight(this) ,r, gr, values[0],values[1],values[2],values[3]);
 		jo.setUp();
 		jo.setSize(img.getWidth(this),img.getHeight(this));
 		jo.setVisible(true);
