@@ -18,6 +18,12 @@ public class Pez extends JComponent implements Runnable{
 	int[] gen;
 	NonlinearAffineTransformation nat;
 	String race;
+	boolean leader = false;
+	Pez lider;
+	
+	public void setLider(){
+		leader = true;
+	}
 	
 	static String[] pathimgPerRace = {
 		"src/raza0.png", //Raza0
@@ -87,7 +93,8 @@ public class Pez extends JComponent implements Runnable{
 	
 
 
-	public Pez(int x, int y, String pathImg, int[] gen){
+	public Pez(int x, int y, String pathImg, int[] gen, Pez lider){
+		this.lider = lider;
 		this.gen = gen.clone();
 		this.pathImg = pathImg;
 		try{
@@ -123,7 +130,7 @@ public class Pez extends JComponent implements Runnable{
 		
 		JFrame j = new JFrame();
 		int[] h = {0,1,1,1,0,1,0,1, 5,-3,250};
-		Pez p = new Pez(10, 10 , "src/raza0.png" ,h );
+		Pez p = new Pez(10, 10 , "src/raza0.png" ,h,null);
 		p.setSize(700,700);
 		p.setVisible(true);
 		Thread mythread = new Thread(p);
@@ -141,22 +148,53 @@ public class Pez extends JComponent implements Runnable{
 	    boolean ybackwards=false;
 		while(true){
 			repaint();
+			if(leader){
+				if(xbackwards){
+					x = x - gen[4];
+					if(x < 50) xbackwards = false;
+				}else{
+					x = x + gen[4];
+					if(x > 1200) xbackwards = true;
+				}
 			
-			if(xbackwards){
-				x = x - gen[4];
-				if(x < 50) xbackwards = false;
+				if(ybackwards){
+					y = y - gen[5];
+					if(y < 50) ybackwards = false;
+				}else{
+					y = y + gen[5];
+					if(y > 720) ybackwards = true;
+				}
 			}else{
-				x = x + gen[4];
-				if(x > 1200) xbackwards = true;
+				
+				int x1 = lider.x;
+				int y1 = lider.y;
+				int distx = x - x1;
+				int disty = y - y1;
+				if(Math.abs(distx)>Math.abs(disty)){
+					if(Math.abs(distx)>45){
+						if(distx<0){
+							x = x + gen[4] + 5;
+						}else{
+							x = x - gen[4] - 5;
+						}
+					}else{
+						x = x + (int)(Math.random()*15);
+					}
+				}else{
+					if(Math.abs(disty)>45){
+						if(disty<0){
+							y = y + gen[4] + 5;
+						}else{
+							y = y - gen[4] - 5;
+						}
+					}else{
+						y = y + (int)(Math.random()*15);
+					}
+					
+				}
+				
 			}
 			
-			if(ybackwards){
-				y = y - gen[5];
-				if(y < 50) ybackwards = false;
-			}else{
-				y = y + gen[5];
-				if(y > 720) ybackwards = true;
-			}
 			try {
 				Thread.sleep(gen[6]);
 			} catch (InterruptedException e) {
@@ -177,7 +215,11 @@ public class Pez extends JComponent implements Runnable{
 			newGen[i] = this.gen[i];
 		}
 		System.out.println("Creado Pez: x "+ x + " , y "+ y );
-		return new Pez(200,150,path, newGen);
+		if(pez.lider == null){
+			return new Pez(150,100,path, newGen,pez);
+		}else{
+			return new Pez(150,100,path, newGen,pez.lider);
+		}
 	}
 	
 	

@@ -28,7 +28,7 @@ public class PlantsGenerator extends JFrame{
 	}
 	
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws Exception{
 		String axiom = "F";
 		//TREE 1
 		Map<String, String> rules1 = new TreeMap<String, String>();
@@ -50,10 +50,10 @@ public class PlantsGenerator extends JFrame{
 		parser2.setSize(1000, 600);
 		parser2.setVisible(true);
 		Thread tree2 = new Thread(parser2);
-		tree2.start();*/
+		tree2.start();
 		
 		//TREE 3
-		/*Map<String, String> rules3 = new TreeMap<String, String>();
+		Map<String, String> rules3 = new TreeMap<String, String>();
 		rules3.put("F","F[+F]F[-F][F]");
 		int iteraciones3 = 5;
 		Grammar lSystem3 = new Grammar(axiom, rules3, iteraciones3);
@@ -62,7 +62,7 @@ public class PlantsGenerator extends JFrame{
 		parser3.setVisible(true);
 		Thread tree3 = new Thread(parser3);
 		tree3.start();
-		/*1
+		
 		//TREE 4
 		Map<String, String> rules4 = new TreeMap<String, String>();
 		rules4.put("F","F[+F]F[-F][F]");
@@ -84,7 +84,7 @@ public class PlantsGenerator extends JFrame{
 		parser5.setVisible(true);
 		Thread tree5 = new Thread(parser5);
 		tree5.start();
-		/*
+		
 		//TREE 6
 		Map<String, String> rules6 = new TreeMap<String, String>();
 		rules6.put("F","FF-[-F+F+F]+[+F-F-F]");
@@ -106,7 +106,7 @@ public class PlantsGenerator extends JFrame{
 		parser7.setVisible(true);
 		Thread tree7 = new Thread(parser7);
 		tree7.start();
-/*
+		/*
 		//TREE 8
 		Map<String, String> rules8 = new TreeMap<String, String>();
 		rules8.put("X","F-[[X]+X]+F[+FX]-X");
@@ -118,8 +118,7 @@ public class PlantsGenerator extends JFrame{
 		parser8.setVisible(true);
 		Thread tree8 = new Thread(parser8);
 		tree8.start();
-				*/
-		
+			*/	
 		
 		PlantsGenerator aquarium = new PlantsGenerator();
 		//Fish 1
@@ -144,21 +143,45 @@ public class PlantsGenerator extends JFrame{
 		}catch(Exception e){
 			e.printStackTrace();
 		}*/
+		
+		
+		
 		int start = 100;
 		List<Pez> peces = new LinkedList<Pez>();
 		List<Thread> threads = new LinkedList<Thread>();
+		List<Pez> lideres = new LinkedList<Pez>();
 		int x,y;
 		int r;
 		String path;
 		int[] h;
-		for(int i=0;i<start;i++){
+		
+		//Generate Leader
+		Pez mypez;
+		for(int i=0;i<Pez.pathimgPerRace.length;i++){
+			x = (int)(Math.random()*50);
+			y = (int)(Math.random()*70);
+			r = (int)(Math.random()*10);
+			path = Pez.pathimgPerRace[i];
+			h = Pez.genPerRace[i].clone();
+			mypez = new Pez(x,y, path,h,null);
+			mypez.setLider();
+			peces.add(mypez);
+			lideres.add(peces.get(i));
+			peces.get(i).setSize(1300,770);
+			peces.get(i).setVisible(true);
+			threads.add(new Thread(peces.get(i)));
+			threads.get(i).start();
+			aquarium.getContentPane().add(peces.get(i));
+		}
+		
+		for(int i=Pez.pathimgPerRace.length;i<start;i++){
 			x = (int)(Math.random()*1200);
 			y = (int)(Math.random()*720);
 			r = (int)(Math.random()*10);
 			path = Pez.pathimgPerRace[r];
 			h = Pez.genPerRace[r].clone();
 			//peces.add(new Pez(x+Pez.positionRaces[r][0],y + Pez.positionRaces[r][1], path,h));
-			peces.add(new Pez(x,y, path,h));
+			peces.add(new Pez(x,y, path,h,lideres.get(r)));
 			peces.get(i).setSize(1300,770);
 			peces.get(i).setVisible(true);
 			threads.add(new Thread(peces.get(i)));
@@ -175,7 +198,7 @@ public class PlantsGenerator extends JFrame{
 		//aquarium.getContentPane().add(parser5);
 		//aquarium.getContentPane().add(parser6);
 		aquarium.getContentPane().add(parser7);
-		//aquarium.getContentPane().add(parser8);*/
+		//aquarium.getContentPane().add(parser8);
 		Background bg = new Background(0,0);
 		bg.setSize(1300, 770);
 		bg.setVisible(true);

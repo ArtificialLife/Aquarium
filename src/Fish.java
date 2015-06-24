@@ -193,7 +193,7 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 	
 	public static void main(String[] args){
 		JFrame myframe = new JFrame();
-		Fish fish = new Fish("src/fisho.gif", 50, 80, 0.16, 0.08, 0.045, 0.06,0.5f,0.5f);
+		Fish fish = new Fish("src/fisho.gif", 50, 80, 0.16, 0.08, 0.045, 0.06,0.75f,0.16f);
 		fish.setSize(1000,600);
 		fish.setVisible(true);
 		Thread thread = new Thread(fish);
@@ -233,7 +233,7 @@ public class Fish extends JComponent implements Cloneable, Runnable {
 	public void run() {
 		//Turing
 		BufferedImage img = convertToBufferedImage(im);
-		double[] values = PRESET[0];
+		double[] values = PRESET[4];
 		jo = new TuringMorph(img.getWidth(this), img.getHeight(this) ,r, gr, values[0],values[1],values[2],values[3]);
 		jo.setUp();
 		jo.setSize(img.getWidth(this),img.getHeight(this));
